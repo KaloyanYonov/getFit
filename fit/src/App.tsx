@@ -9,7 +9,7 @@ import NotFound from "./pages/NotFound"
 export default function App(){
 
   return(
-    <div>
+    <div className="bg-linear-90 from-purple-300 to-gray-400">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Welcome/>}/>
