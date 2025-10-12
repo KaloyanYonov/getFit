@@ -4,12 +4,15 @@ import AdviceForm from "./pages/AdviceForm"
 import Bulk from "./pages/Bulk"
 import Cut from "./pages/Cut"
 import NotFound from "./pages/NotFound"
-
+import PPL from "./pages/splits/PPL"
+import Bro from "./pages/splits/Bro"
+import WholeBody from "./pages/splits/WholeBody"
+import UpperLower from "./pages/splits/UpperLower"
 
 export default function App(){
 
   return(
-    <div className="bg-linear-90 from-purple-300 to-gray-400">
+    <div className="min-h-screen bg-linear-90 from-purple-300 to-gray-400">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Welcome/>}/>
@@ -17,6 +20,13 @@ export default function App(){
           <Route path="/bulk" element={<Bulk/>}/>
           <Route path="/cut" element={<Cut/>}/>
           <Route path="*" element={<NotFound/>}/>
+          <Route path="/splits/ppl" element={<PPL/>}/>
+          <Route path="/splits/bro" element={<Bro/>}/>
+          <Route path="/splits/wholebody" element={<WholeBody/>}/>
+          <Route path="/splits/upperlower" element={<UpperLower/>}/>
+
+
+
         </Routes>
       </BrowserRouter>
     </div>

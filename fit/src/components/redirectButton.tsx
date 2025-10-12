@@ -1,9 +1,19 @@
 import { NavLink } from "react-router-dom";
 
-export default function RedirectButton({ to, name }: { to: string; name: string }) {
+type RedirectButtonProps = {
+    to: string;
+    name: string;
+};
+
+export default function RedirectButton({ to, name }: RedirectButtonProps) {
     return (
-        <div className="block border m-10">
-            <NavLink to={to}>{name}</NavLink>
-        </div>
-    )
+        <NavLink
+            to={to}
+            className="px-8 py-3 text-white rounded-lg font-medium transition
+                bg-gradient-to-r from-purple-600 to-gray-300
+                hover:from-purple-700 hover:to-gray-500
+                focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2">
+            {name}
+        </NavLink>
+    );
 }
