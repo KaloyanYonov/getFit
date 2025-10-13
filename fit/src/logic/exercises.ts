@@ -4,7 +4,7 @@ export const allExercises = [
         muscleGroup: "Chest, Triceps, Shoulders",
         image: "https://static.strengthlevel.com/images/exercises/bench-press/bench-press-800.jpg",
         description: "Classic push movement for upper body strength.",
-        category: "push" as const,
+        category: "push"  as const,
     },
     {
         name: "Push Ups",

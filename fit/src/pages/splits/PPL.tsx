@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ExerciseCard from "../../components/ExerciseCard";
 import { allExercises } from "../../logic/exercises";
+import Calendar from "../../components/Calendar";
 
 export default function PPL() {
     const [pushList, setPushList] = useState<string[]>([]);
@@ -26,6 +27,19 @@ export default function PPL() {
             <h1 className="text-4xl font-bold text-center text-gray-800 mb-6">
                 Push–Pull–Legs (PPL) Split
             </h1>
+
+            <Calendar
+                title="Weekly Schedule — Push Pull Legs"
+                days={[
+                    { day: "Mon", type: "push" },
+                    { day: "Tue", type: "pull" },
+                    { day: "Wed", type: "legs" },
+                    { day: "Thu", type: "rest" },
+                    { day: "Fri", type: "push" },
+                    { day: "Sat", type: "pull" },
+                    { day: "Sun", type: "legs" },
+                ]}
+            />
 
             <div className="space-y-12">
                 <section>
