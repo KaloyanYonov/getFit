@@ -3,9 +3,18 @@ type ExerciseCardProps = {
     muscleGroup: string;
     image: string;
     description?: string;
+    category: "push" | "pull" | "legs";
+    addExercise: (name: string, category: "push" | "pull" | "legs") => void;
 };
 
-export default function ExerciseCard({ name, muscleGroup, image, description }: ExerciseCardProps) {
+export default function ExerciseCard({
+    name,
+    muscleGroup,
+    image,
+    description,
+    category,
+    addExercise,
+}: ExerciseCardProps) {
     return (
         <div className="bg-white rounded-xl shadow-md overflow-hidden w-full max-w-sm mx-auto transition-transform duration-200 hover:scale-105 hover:shadow-lg">
             <img
@@ -19,8 +28,15 @@ export default function ExerciseCard({ name, muscleGroup, image, description }: 
                     <span className="font-medium text-gray-700">Target:</span> {muscleGroup}
                 </p>
                 {description && (
-                    <p className="text-gray-500 text-sm leading-relaxed">{description}</p>
+                    <p className="text-gray-500 text-sm leading-relaxed mb-4">{description}</p>
                 )}
+
+                <button
+                    onClick={() => addExercise(name, category)}
+                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition"
+                >
+                    Add to Split
+                </button>
             </div>
         </div>
     );
