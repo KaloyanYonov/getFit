@@ -2,14 +2,11 @@
 
 A React project that helps people create their training program.
 
-### So far :
-Created Exercises and the abillity to add them + Push pull legs split
-
 ### TODO :
 
-Bro split, WholeBody split, Upper-Lower split
-Calendar to create your own program
 Either localStorage save or save as PNG/JPG.
+Cutting part of the project
+Diet (soon)
 
 
 ## Scripts
