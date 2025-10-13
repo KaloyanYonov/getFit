@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { validateForm, getFitnessAdvice, getFitnessGoal } from "../logic/validation";
 import SubmitButton from "../components/submitButton";
 import type { FitnessGoal } from "../logic/validation";
+import ClearButton from "../components/clearButton";
 
 export default function AdviceForm() {
     const [weight, setWeight] = useState("");
@@ -38,6 +39,16 @@ export default function AdviceForm() {
         if (goal === "bulk") navigate("/bulk");
         else if (goal === "cut") navigate("/cut");
         else navigate("/");
+    }
+
+    function handleClear(){
+        setWeight("");
+        setHeight("");
+        setAge("");
+        setAdvice(null);
+        setGoal(null);
+        setError(null);
+        setShowPopup(false);
     }
 
     return (
@@ -76,6 +87,7 @@ export default function AdviceForm() {
                     />
 
                     <SubmitButton />
+                    <ClearButton onClick={handleClear}/>
                 </form>
 
                 {error && (
