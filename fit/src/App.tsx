@@ -8,6 +8,7 @@ import PPL from "./pages/splits/PPL"
 import Bro from "./pages/splits/Bro"
 import WholeBody from "./pages/splits/WholeBody"
 import UpperLower from "./pages/splits/UpperLower"
+import Diet from "./pages/Diet"
 
 export default function App(){
 
@@ -24,7 +25,7 @@ export default function App(){
           <Route path="/splits/bro" element={<Bro/>}/>
           <Route path="/splits/wholebody" element={<WholeBody/>}/>
           <Route path="/splits/upperlower" element={<UpperLower/>}/>
-
+          <Route path="/diet" element={<Diet/>}/>
 
 
         </Routes>

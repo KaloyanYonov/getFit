@@ -57,6 +57,12 @@ export default function Bulk() {
                     </li>
                 </ul>
             </div>
+            <div className="bg-white border border-gray-200 rounded-lg p-4 m-5 shadow hover:shadow-md transition">
+                <p className="text-lg text-gray-500">Click below for ourrecommended diet for bulking</p>
+                <Link to="/diet" className="font-medium text-blue-600 hover:underline">
+                    Diet
+                </Link>
+            </div>
         </div>
     );
 }

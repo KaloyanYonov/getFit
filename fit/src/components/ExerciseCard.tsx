@@ -7,14 +7,7 @@ type ExerciseCardProps = {
     addExercise: (name: string, category: "push" | "pull" | "legs") => void;
 };
 
-export default function ExerciseCard({
-    name,
-    muscleGroup,
-    image,
-    description,
-    category,
-    addExercise,
-}: ExerciseCardProps) {
+export default function ExerciseCard({name,muscleGroup,image,description,category,addExercise}: ExerciseCardProps) {
     return (
         <div className="bg-white rounded-xl shadow-md overflow-hidden w-full max-w-sm mx-auto transition-transform duration-200 hover:scale-105 hover:shadow-lg">
             <img
