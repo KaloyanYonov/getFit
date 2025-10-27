@@ -16,6 +16,10 @@ export default function Diet() {
   const [desiredWeight, setDesiredWeight] = useState<string>("");
   const [calculated, setCalculated] = useState(false);
 
+
+  // TODO: Add food item button and create calorie tracker (and other nutrients probably)
+  const [calories, setCalories] = useState<number>(0);
+
   const filteredFoods = foodElements.filter((food) => {
     const veganMatch = showVegan ? food.isVegan : true;
     const categoryMatch = category === "all" ? true : food.category === category;
@@ -124,7 +128,6 @@ export default function Diet() {
               const h = Number(height);
               const w = Number(weight);
               const a = Number(age);
-              const dw = Number(desiredWeight);
 
               const BMR =
                 gender === "male"
@@ -160,6 +163,7 @@ export default function Diet() {
         <p className="text-sm italic text-gray-500 mt-2">
           (This is a simple estimation assuming a moderate surplus.)
         </p>
+        <p className="text-lg font-bold pt-10">Current calories: {calories}</p>
       </div>
 
       <div className="flex flex-wrap justify-between items-center mb-8 gap-4">
