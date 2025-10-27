@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { foodElements } from "../logic/foods";
+import { foodElements} from "../logic/foods";
+import type { FoodCategory } from "../logic/foods";
 import FoodItem from "../components/foodItem";
 
 export default function Diet() {
@@ -11,6 +12,14 @@ export default function Diet() {
     const categoryMatch = category === "all" ? true : f.category === category;
     return veganMatch && categoryMatch;
   });
+
+  const groupedFoods = filteredFoods.reduce((acc, food) => {
+    if (!acc[food.category]) {
+      acc[food.category] = [];
+    }
+    acc[food.category].push(food);
+    return acc;
+  }, {} as Record<FoodCategory, typeof foodElements>);
 
   return (
     <div className="px-6 py-10 max-w-7xl mx-auto">
@@ -45,13 +54,22 @@ export default function Diet() {
         </div>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {filteredFoods.map((f) => (
-          <FoodItem key={f.name} {...f} />
-        ))}
-      </div>
-      <p className="flex items-center justify-center mt-20 italic">All nutrion is calculated at 100g portions</p>
-    </div>
+      {Object.entries(groupedFoods).map(([categoryName, items]) => (
+        <div key={categoryName} className="mb-10">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-700 capitalize border-b pb-2 border-gray-300">
+            {categoryName}
+          </h2>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {items.map((f) => (
+              <FoodItem key={f.name} {...f} />
+            ))}
+          </div>
+        </div>
+      ))}
 
+      <p className="flex items-center justify-center mt-20 italic">
+        All nutrition is calculated at 100g portions
+      </p>
+    </div>
   );
 }
