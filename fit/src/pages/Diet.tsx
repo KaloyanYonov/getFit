@@ -1,30 +1,169 @@
 import { useState } from "react";
-import { foodElements} from "../logic/foods";
+import { foodElements } from "../logic/foods";
 import type { FoodCategory } from "../logic/foods";
 import FoodItem from "../components/foodItem";
 
 export default function Diet() {
+  const [neededCalories, setNeededCalories] = useState<number>(0);
+  const [gender, setGender] = useState<"male" | "female" | null>(null);
   const [showVegan, setShowVegan] = useState(false);
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState<FoodCategory | "all">("all");
+  const [error, setError] = useState<string>("");
 
-  const filteredFoods = foodElements.filter((f) => {
-    const veganMatch = showVegan ? f.isVegan : true;
-    const categoryMatch = category === "all" ? true : f.category === category;
+  const [height, setHeight] = useState<string>("");
+  const [weight, setWeight] = useState<string>("");
+  const [age, setAge] = useState<string>("");
+  const [desiredWeight, setDesiredWeight] = useState<string>("");
+  const [calculated, setCalculated] = useState(false);
+
+  const filteredFoods = foodElements.filter((food) => {
+    const veganMatch = showVegan ? food.isVegan : true;
+    const categoryMatch = category === "all" ? true : food.category === category;
     return veganMatch && categoryMatch;
   });
 
-  const groupedFoods = filteredFoods.reduce((acc, food) => {
-    if (!acc[food.category]) {
-      acc[food.category] = [];
-    }
-    acc[food.category].push(food);
-    return acc;
-  }, {} as Record<FoodCategory, typeof foodElements>);
+  const groupedFoods = filteredFoods.reduce(
+    (acc, food) => {
+      if (!acc[food.category]) acc[food.category] = [];
+      acc[food.category].push(food);
+      return acc;
+    },
+    {} as Record<FoodCategory, typeof foodElements>
+  );
+
+  if (!gender) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen text-center">
+        <h1 className="text-3xl font-bold mb-6 text-gray-800">Select Your Gender</h1>
+        <div className="flex gap-6">
+          <button
+            onClick={() => setGender("male")}
+            className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+          >
+            Male
+          </button>
+          <button
+            onClick={() => setGender("female")}
+            className="px-6 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+          >
+            Female
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+
+  if (!calculated) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen px-6 text-center">
+        <h1 className="text-3xl font-bold mb-6 text-gray-800">Enter Your Stats</h1>
+        <div className="bg-white shadow-md p-8 rounded-xl w-full max-w-md space-y-4">
+          <div>
+            <label className="block text-gray-700 mb-1 font-medium">Age</label>
+            <input
+              type="number"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              className="border border-gray-300 rounded-md w-full px-3 py-2"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 mb-1 font-medium">Height (cm)</label>
+            <input
+              type="number"
+              value={height}
+              onChange={(e) => setHeight(e.target.value)}
+              className="border border-gray-300 rounded-md w-full px-3 py-2"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 mb-1 font-medium">Current Weight (kg)</label>
+            <input
+              type="number"
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+              className="border border-gray-300 rounded-md w-full px-3 py-2"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 mb-1 font-medium">Desired Weight (kg)</label>
+            <input
+              type="number"
+              value={desiredWeight}
+              onChange={(e) => setDesiredWeight(e.target.value)}
+              className="border border-gray-300 rounded-md w-full px-3 py-2"
+            />
+          </div>
+
+          <button
+            onClick={() => {
+              if(!age || Number(age) < 0){
+                setError("Please enter a valid age");
+                return;
+              }
+              if(!height || Number(height) < 0){
+                setError("Please enter a valid height");
+                return;
+              }
+              if(!weight || Number(weight) < 0){
+                setError("Please enter a valid weight");
+                return;
+              }
+              if(!desiredWeight || Number(desiredWeight) < 0){
+                setError("Please enter a valid desired weight");
+                return;
+              }
+              if (desiredWeight <= weight) {
+                setError("Desired weight must be greater than current weight for bulking.");
+                return;
+              }
+
+              setError("");
+
+              const h = Number(height);
+              const w = Number(weight);
+              const a = Number(age);
+              const dw = Number(desiredWeight);
+
+              const BMR =
+                gender === "male"
+                  ? 10 * w + 6.25 * h - 5 * a + 5
+                  : 10 * w + 6.25 * h - 5 * a - 161;
+
+              const bulkingCalories = BMR + 500;
+              setNeededCalories(Math.round(bulkingCalories));
+              setCalculated(true);
+            }}
+            className="mt-4 w-full py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+          >
+            Calculate Calories
+          </button>
+
+          {error && (
+            <p className="text-red-600 text-sm font-medium mt-3">{error}</p>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
+
     <div className="px-6 py-10 max-w-7xl mx-auto">
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">Your Calorie Goal</h1>
+        <p className="text-lg text-gray-700">
+          You need approximately <b>{neededCalories}</b> kcal/day to bulk from{" "}
+          <b>{weight}</b> kg to <b>{desiredWeight}</b> kg.
+        </p>
+        <p className="text-sm italic text-gray-500 mt-2">
+          (This is a simple estimation assuming a moderate surplus.)
+        </p>
+      </div>
+
       <div className="flex flex-wrap justify-between items-center mb-8 gap-4">
-        <h1 className="text-3xl font-bold text-gray-800">Diet Planner</h1>
+        <h2 className="text-2xl font-semibold text-gray-800">Diet Planner</h2>
 
         <div className="flex flex-wrap items-center gap-4">
           <label className="flex items-center gap-2 cursor-pointer">
@@ -39,7 +178,7 @@ export default function Diet() {
 
           <select
             value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={(e) => setCategory(e.target.value as FoodCategory | "all")}
             className="border border-gray-300 rounded-md px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
             <option value="all">All categories</option>
@@ -68,7 +207,7 @@ export default function Diet() {
       ))}
 
       <p className="flex items-center justify-center mt-20 italic">
-        All nutrition is calculated at 100g portions
+        All nutrition values are for 100g portions.
       </p>
     </div>
   );
