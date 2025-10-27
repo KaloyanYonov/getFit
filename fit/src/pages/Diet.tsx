@@ -50,6 +50,8 @@ export default function Diet() {
           <FoodItem key={f.name} {...f} />
         ))}
       </div>
+      <p className="flex items-center justify-center mt-20 italic">All nutrion is calculated at 100g portions</p>
     </div>
+
   );
 }
