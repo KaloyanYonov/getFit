@@ -1,3 +1,5 @@
+import AddExerciseButton from "./addExerciseButton";
+
 type ExerciseCardProps = {
     name: string;
     muscleGroup: string;
@@ -24,12 +26,10 @@ export default function ExerciseCard({name,muscleGroup,image,description,categor
                     <p className="text-gray-500 text-sm leading-relaxed mb-4">{description}</p>
                 )}
 
-                <button
+                <AddExerciseButton
                     onClick={() => addExercise(name, category)}
-                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition"
-                >
-                    Add to Split
-                </button>
+                    text="Add to Split"
+                />
             </div>
         </div>
     );

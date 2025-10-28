@@ -1,3 +1,5 @@
+import AddFoodButton from "./addFoodButton";
+
 type FoodProps = {
   name: string;
   protein: number;
@@ -7,6 +9,9 @@ type FoodProps = {
   image: string;
   isVegan?: boolean;
   category: string;
+  addFood: (name: string, protein:number,carbs:number,fats:number,calories:number,image:string,
+    category:string
+  ) =>void;
 };
 
 export default function FoodItem({
@@ -18,6 +23,7 @@ export default function FoodItem({
   image,
   isVegan,
   category,
+  addFood
 }: FoodProps) {
   return (
     <div className="relative bg-gray-100 rounded-xl shadow-md overflow-hidden w-full max-w-sm mx-auto transition-transform duration-200 hover:scale-105 hover:shadow-lg">
@@ -45,6 +51,9 @@ export default function FoodItem({
           <span><strong>Fats:</strong> {fats} g</span>
           <span><strong>Calories:</strong> {calories} kcal</span>
         </div>
+
+        <AddFoodButton onClick={() => addFood(name,protein,carbs,fats,calories,image,category)} text="Add to diet"/>
+        
       </div>
     </div>
   );

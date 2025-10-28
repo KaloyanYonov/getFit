@@ -18,13 +18,24 @@ export default function Diet() {
 
 
   // TODO: Add food item button and create calorie tracker (and other nutrients probably)
-  const [calories, setCalories] = useState<number>(0);
+  const [currentCalories, setCalories] = useState<number>(0);
+  const [selected, setSelected] = useState<string[]>([]);
+
 
   const filteredFoods = foodElements.filter((food) => {
     const veganMatch = showVegan ? food.isVegan : true;
     const categoryMatch = category === "all" ? true : food.category === category;
     return veganMatch && categoryMatch;
   });
+
+  function handleAdd(name:string,calories:number) {
+        if (!selected.includes(name)) {
+            setSelected([...selected, name]);
+        }
+        setCalories(currentCalories+calories);
+
+    }
+
 
   const groupedFoods = filteredFoods.reduce(
     (acc, food) => {
@@ -163,7 +174,7 @@ export default function Diet() {
         <p className="text-sm italic text-gray-500 mt-2">
           (This is a simple estimation assuming a moderate surplus.)
         </p>
-        <p className="text-lg font-bold pt-10">Current calories: {calories}</p>
+        <p className="text-lg font-bold pt-10">Current calories: {currentCalories}</p>
       </div>
 
       <div className="flex flex-wrap justify-between items-center mb-8 gap-4">
@@ -204,7 +215,8 @@ export default function Diet() {
           </h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((f) => (
-              <FoodItem key={f.name} {...f} />
+              <FoodItem key={f.name} {...f}
+              addFood={() => handleAdd(f.name,f.calories)} />
             ))}
           </div>
         </div>
