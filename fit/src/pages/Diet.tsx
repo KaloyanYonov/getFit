@@ -6,6 +6,7 @@ import RemoveButton from "../components/RemoveButton";
 
 export default function Diet() {
   const [neededCalories, setNeededCalories] = useState<number>(0);
+  const [neededProtein,setNeededProtein] =useState<number>(0);
   const [gender, setGender] = useState<"male" | "female" | null>(null);
   const [showVegan, setShowVegan] = useState(false);
   const [category, setCategory] = useState<FoodCategory | "all">("all");
@@ -18,8 +19,8 @@ export default function Diet() {
   const [calculated, setCalculated] = useState(false);
 
 
-  // TODO: Add food item button and create calorie tracker (and other nutrients probably)
   const [currentCalories, setCalories] = useState<number>(0);
+  const [currentProtein,setCurrentProtein] = useState<number>(0);
   const [selectedFoods, setSelectedFoods] = useState<
     { name: string; grams: number; calories: number; protein: number; carbs: number; fats: number }[]
   >([]);
@@ -51,6 +52,7 @@ export default function Diet() {
 
     setSelectedFoods((prev) => [...prev, newItem]);
     setCalories((prev) => prev + newItem.calories);
+    setCurrentProtein((prev) => prev + newItem.protein);
   }
 
   function handleRemove(index: number) {
@@ -58,7 +60,8 @@ export default function Diet() {
       const foodToRemove = prev[index];
       if (!foodToRemove) return prev;
 
-      setCalories((cals) => cals - foodToRemove.calories);
+      setCalories(() => currentCalories - foodToRemove.calories);
+      setCurrentProtein(() => (currentProtein - foodToRemove.protein));
       return prev.filter((_, i) => i !== index);
     });
   }
@@ -175,7 +178,9 @@ export default function Diet() {
                   : 10 * w + 6.25 * h - 5 * a - 161;
 
               const bulkingCalories = BMR + 500;
+              const bulkingProtein = w*1.9;
               setNeededCalories(Math.round(bulkingCalories));
+              setNeededProtein(Math.round(bulkingProtein));
               setCalculated(true);
             }}
             className="mt-4 w-full py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
@@ -197,13 +202,14 @@ export default function Diet() {
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-2">Your Calorie Goal</h1>
         <p className="text-lg text-gray-700">
-          You need approximately <b>{neededCalories}</b> kcal/day to bulk from{" "}
+          You need approximately <b>{neededCalories}</b> kcal/day and <b>{neededProtein}</b>g of protein to bulk from{" "}
           <b>{weight}</b> kg to <b>{desiredWeight}</b> kg.
         </p>
         <p className="text-sm italic text-gray-500 mt-2">
           (This is a simple estimation assuming a moderate surplus.)
         </p>
         <p className="text-lg font-bold pt-10">Current calories: {currentCalories}</p>
+        <p className="text-lg font-bold pt-4">Current protein: {currentProtein}</p>
       </div>
 
       <div className="flex flex-wrap justify-between items-center mb-8 gap-4">
