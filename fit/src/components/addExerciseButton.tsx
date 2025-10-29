@@ -7,7 +7,7 @@ export default function AddExerciseButton({ onClick, text = "Add Exercise" }: Ad
     return (
         <button
             onClick={onClick}
-            className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition"
+            className=" mt-4 px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition"
         >
             {text}
         </button>
