@@ -2,6 +2,7 @@ import { useState } from "react";
 import { foodElements } from "../logic/foods";
 import type { FoodCategory } from "../logic/foods";
 import FoodItem from "../components/foodItem";
+import RemoveButton from "../components/RemoveButton";
 
 export default function Diet() {
   const [neededCalories, setNeededCalories] = useState<number>(0);
@@ -19,7 +20,9 @@ export default function Diet() {
 
   // TODO: Add food item button and create calorie tracker (and other nutrients probably)
   const [currentCalories, setCalories] = useState<number>(0);
-  const [selected, setSelected] = useState<string[]>([]);
+  const [selectedFoods, setSelectedFoods] = useState<
+    { name: string; grams: number; calories: number; protein: number; carbs: number; fats: number }[]
+  >([]);
 
 
   const filteredFoods = foodElements.filter((food) => {
@@ -28,13 +31,39 @@ export default function Diet() {
     return veganMatch && categoryMatch;
   });
 
-  function handleAdd(name:string,calories:number) {
-        if (!selected.includes(name)) {
-            setSelected([...selected, name]);
-        }
-        setCalories(currentCalories+calories);
+  function handleAdd(name: string, protein: number, carbs: number, fats: number, calories: number) {
+    const gramsStr = prompt(`How many grams of ${name} do you want to add?`, "100");
+    if (!gramsStr) return;
 
-    }
+    const grams = Number(gramsStr);
+    if (isNaN(grams) || grams <= 0) return alert("Please enter a valid number!");
+
+    const multiplier = grams / 100;
+
+    const newItem = {
+      name,
+      grams,
+      protein: protein * multiplier,
+      carbs: carbs * multiplier,
+      fats: fats * multiplier,
+      calories: calories * multiplier,
+    };
+
+    setSelectedFoods((prev) => [...prev, newItem]);
+    setCalories((prev) => prev + newItem.calories);
+  }
+
+  function handleRemove(index: number) {
+    setSelectedFoods((prev) => {
+      const foodToRemove = prev[index];
+      if (!foodToRemove) return prev;
+
+      setCalories((cals) => cals - foodToRemove.calories);
+      return prev.filter((_, i) => i !== index);
+    });
+  }
+
+
 
 
   const groupedFoods = filteredFoods.reduce(
@@ -113,19 +142,19 @@ export default function Diet() {
 
           <button
             onClick={() => {
-              if(!age || Number(age) < 0){
+              if (!age || Number(age) < 0) {
                 setError("Please enter a valid age");
                 return;
               }
-              if(!height || Number(height) < 0){
+              if (!height || Number(height) < 0) {
                 setError("Please enter a valid height");
                 return;
               }
-              if(!weight || Number(weight) < 0){
+              if (!weight || Number(weight) < 0) {
                 setError("Please enter a valid weight");
                 return;
               }
-              if(!desiredWeight || Number(desiredWeight) < 0){
+              if (!desiredWeight || Number(desiredWeight) < 0) {
                 setError("Please enter a valid desired weight");
                 return;
               }
@@ -216,7 +245,7 @@ export default function Diet() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((f) => (
               <FoodItem key={f.name} {...f}
-              addFood={() => handleAdd(f.name,f.calories)} />
+                addFood={() => handleAdd(f.name, f.protein, f.carbs, f.fats, f.calories)} />
             ))}
           </div>
         </div>
@@ -225,6 +254,44 @@ export default function Diet() {
       <p className="flex items-center justify-center mt-20 italic">
         All nutrition values are for 100g portions.
       </p>
+      {selectedFoods.length > 0 && (
+        <div className="mt-12 border bg-linear-90 from-purple-400 to-gray-500 p-6 rounded-xl shadow-inner">
+          <h3 className="text-xl font-semibold mb-4 text-gray-800 text-center">Your Current Diet</h3>
+          <table className="w-full text-left bg-linear-90 from-purple-300 to-gray-400 border-collapse">
+            <thead>
+              <tr className="border-b">
+                <th className="py-2 px-3">Food</th>
+                <th className="py-2 px-3">Amount (g)</th>
+                <th className="py-2 px-3">Calories</th>
+                <th className="py-2 px-3">Protein</th>
+                <th className="py-2 px-3">Carbs</th>
+                <th className="py-2 px-3">Fats</th>
+                <th className="py-2 px-3 text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {selectedFoods.map((food, index) => (
+                <tr key={index} className="border-b hover:bg-gray-50">
+                  <td className="py-2 px-3">{food.name}</td>
+                  <td className="py-2 px-3">{food.grams}</td>
+                  <td className="py-2 px-3">{food.calories.toFixed(0)}</td>
+                  <td className="py-2 px-3">{food.protein.toFixed(1)}</td>
+                  <td className="py-2 px-3">{food.carbs.toFixed(1)}</td>
+                  <td className="py-2 px-3">{food.fats.toFixed(1)}</td>
+                  <td className="py-2 px-3 text-center">
+                    <RemoveButton
+                      onClick={() => handleRemove(index)}
+                      text="Remove"
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+
+          </table>
+        </div>
+      )}
+
     </div>
   );
 }
