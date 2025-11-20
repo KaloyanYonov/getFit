@@ -3,8 +3,8 @@ export default function SubmitButton() {
         <button
             type="submit"
             className="px-8 py-3 rounded-lg font-semibold text-white 
-                       bg-gradient-to-r from-purple-600 to-purple-800
-                       hover:from-purple-700 hover:to-purple-900 
+                       bg-gradient-to-r from-gray-700 to-gray-500
+                       hover:from-gray-700 hover:to-gray-800
                        "
         >
             Submit

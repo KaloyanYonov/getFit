@@ -261,9 +261,9 @@ export default function Diet() {
         All nutrition values are for 100g portions.
       </p>
       {selectedFoods.length > 0 && (
-        <div className="mt-12 border bg-linear-90 from-purple-400 to-gray-500 p-6 rounded-xl shadow-inner">
+        <div className="mt-12 border bg-linear-90 from-gray-400 to-gray-300 p-6 rounded-xl shadow-inner">
           <h3 className="text-xl font-semibold mb-4 text-gray-800 text-center">Your Current Diet</h3>
-          <table className="w-full text-left bg-linear-90 from-purple-300 to-gray-400 border-collapse">
+          <table className="w-full text-left bg-gray border-collapse">
             <thead>
               <tr className="border-b">
                 <th className="py-2 px-3">Food</th>
