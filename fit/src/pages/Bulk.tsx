@@ -30,7 +30,7 @@ export default function Bulk() {
                     Common Training Splits
                 </h2>
 
-                <ul className="grid gap-6 sm:grid-cols-2 text-lg text-gray-700">
+                <ul className=" italic grid gap-6 sm:grid-cols-2 text-lg text-gray-700">
                     {[
                         { to: "/splits/ppl", label: "Push–Pull–Legs (PPL)", desc: "6 days/week — balanced split" },
                         { to: "/splits/bro", label: "Bro Split", desc: "5 days/week — 1 muscle per day" },

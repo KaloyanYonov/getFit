@@ -20,7 +20,7 @@ export default function Welcome() {
 
             <div className="w-40 h-[2px] bg-gray-300 mb-8 animate-fadeIn"></div>
 
-            <p className="text-gray-700 text-lg mb-4 animate-fadeIn">
+            <p className="text-gray-700 text-lg mb-4 animate-fadeIn mb-10">
                 Not sure which program fits you best?
             </p>
 

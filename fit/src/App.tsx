@@ -13,7 +13,7 @@ import Diet from "./pages/Diet"
 export default function App(){
 
   return(
-    <div className="min-h-screen bg-[#CFCFEA]">
+    <div className="min-h-screen bg-[#edf5fc]">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Welcome/>}/>

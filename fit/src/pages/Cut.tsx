@@ -1,6 +1,6 @@
 export default function Cut() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen text-center">
+    <div className="animate-fadeIn flex flex-col items-center justify-center h-screen text-center">
       <img
         className="w-64 animate-bounce"
         src="https://www.shutterstock.com/image-vector/repairman-tools-running-technical-service-600nw-1043070622.jpg"
