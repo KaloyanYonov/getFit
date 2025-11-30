@@ -183,7 +183,7 @@ export default function Diet() {
               setNeededProtein(Math.round(bulkingProtein));
               setCalculated(true);
             }}
-            className="mt-4 w-full py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+            className="mt-4 w-full py-3 bg-gray-400 text-white rounded-lg hover:bg-gray-500"
           >
             Calculate Calories
           </button>
