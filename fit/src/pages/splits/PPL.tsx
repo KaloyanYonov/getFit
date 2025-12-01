@@ -2,11 +2,17 @@ import { useState } from "react";
 import ExerciseCard from "../../components/ExerciseCard";
 import { allExercises } from "../../logic/exercises";
 import Calendar from "../../components/Calendar";
+import { useLocation } from "react-router-dom";
 
 export default function PPL() {
     const [pushList, setPushList] = useState<string[]>([]);
     const [pullList, setPullList] = useState<string[]>([]);
     const [legList, setLegList] = useState<string[]>([]);
+
+    const location = useLocation();
+    const program = location.state?.program || "bulk";
+
+    const bgClass = program === "cut" ? "from-red-50 to-white" : "from-blue-50 to-white";
 
     const pushExercises = allExercises.filter((ex) => ex.category === "push");
     const pullExercises = allExercises.filter((ex) => ex.category === "pull");
@@ -23,7 +29,7 @@ export default function PPL() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white px-6 py-12">
+        <div className={`min-h-screen bg-gradient-to-b ${bgClass} to-white px-6 py-12`}>
             
             <h1 className="text-5xl font-extrabold tracking-tight text-center text-gray-900 mb-10 animate-fadeIn">
                 Push–Pull–Legs (PPL) Split

@@ -43,6 +43,7 @@ export default function Cut() {
               <Link
                 to={item.to}
                 className="font-semibold text-red-600 hover:underline block"
+                state={{program : "cut"}}
               >
                 {item.label}
               </Link>

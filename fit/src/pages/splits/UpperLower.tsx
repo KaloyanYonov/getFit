@@ -2,10 +2,17 @@ import { useState } from "react";
 import ExerciseCard from "../../components/ExerciseCard";
 import { allExercises } from "../../logic/exercises";
 import Calendar from "../../components/Calendar";
+import { useLocation } from "react-router-dom";
 
 export default function UpperLower() {
     const [upperList, setUpperList] = useState<string[]>([]);
     const [lowerList, setLowerList] = useState<string[]>([]);
+
+
+    const location = useLocation();
+    const program = location.state?.program || "bulk";
+
+    const bgClass = program === "cut" ? "from-red-50 to-white" : "from-blue-50 to-white";
 
     const upperExercises = allExercises.filter((ex) =>
         ex.muscleGroup.toLowerCase().match(/chest|tricep|shoulder|bicep|back|delts/)
@@ -31,7 +38,7 @@ export default function UpperLower() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white px-6 py-12">
+        <div className={`min-h-screen bg-gradient-to-b ${bgClass} px-6 py-12`}>
             <h1 className="text-5xl font-extrabold tracking-tight text-center text-gray-900 mb-6 animate-fadeIn">
                 Upper–Lower Split
             </h1>

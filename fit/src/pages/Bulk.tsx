@@ -44,6 +44,7 @@ export default function Bulk() {
                             <Link
                                 to={item.to}
                                 className="font-semibold text-blue-600 hover:underline block"
+                                state={{program : "bulk"}}
                             >
                                 {item.label}
                             </Link>
