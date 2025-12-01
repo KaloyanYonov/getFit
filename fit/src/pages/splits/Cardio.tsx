@@ -12,8 +12,8 @@ export default function Cardio() {
                 return prev;
             }
             return [...prev, name];
-    });
-}
+        });
+    }
 
 
     const cardioExercises = [
@@ -96,24 +96,26 @@ export default function Cardio() {
                             addExercise={() => addExercise(ex.name)}
                         />
                     ))}
-                    <div className="mt-10 bg-white/70 backdrop-blur-sm p-6 rounded-2xl border border-gray-200 shadow-md">
-                        <h3 className="text-xl font-semibold text-gray-800 mb-3">
-                            Selected Exercises
-                        </h3>
-
-                        {exercises.length === 0 ? (
-                            <p className="text-gray-500 italic">No exercises added yet.</p>
-                        ) : (
-                            <ul className="list-disc list-inside text-gray-700 space-y-1">
-                                {exercises.map((name) => (
-                                    <li key={name}>{name}</li>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
 
                 </div>
+                    <div className="mt-10 w-full bg-white/70 backdrop-blur-sm p-6 rounded-2xl border border-gray-200 shadow-md">
+                    <h3 className="text-xl font-semibold text-gray-800 mb-3">
+                        Selected Exercises
+                    </h3>
+
+                    {exercises.length === 0 ? (
+                        <p className="text-gray-500 italic">No exercises added yet.</p>
+                    ) : (
+                        <ul className="list-disc list-inside text-gray-700 space-y-1">
+                            {exercises.map((ex) => (
+                                <li key={ex}>{ex}</li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
             </div>
+            
+
         </div>
     );
 }

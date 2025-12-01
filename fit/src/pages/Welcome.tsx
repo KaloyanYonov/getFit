@@ -2,7 +2,7 @@ import RedirectButton from "../components/redirectButton";
 
 export default function Welcome() {
     return (
-        <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col items-center justify-center px-6 py-16 text-center">
+        <div className="min-h-screen flex flex-col items-center justify-center px-6 py-16 text-center">
             
             <h1 className="text-5xl font-extrabold tracking-tight text-gray-900 mb-6 animate-fadeIn">
                 Welcome to Your Fitness Journey

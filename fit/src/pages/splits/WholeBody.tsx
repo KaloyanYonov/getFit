@@ -36,7 +36,7 @@ export default function WholeBody() {
                     ]}
                 />
             </div>
-
+          
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 justify-items-center animate-fadeIn max-w-7xl mx-auto">
                 {allExercises.map((ex) => (
                     <ExerciseCard
@@ -48,7 +48,7 @@ export default function WholeBody() {
             </div>
 
             {selected.length > 0 && (
-                <div className="mt-16 bg-white/70 backdrop-blur-sm p-6 rounded-2xl border border-gray-200 shadow-md animate-fadeIn max-w-3xl mx-auto">
+                <div className="mt-16 bg-white/70 w-full backdrop-blur-sm p-6 rounded-2xl border border-gray-200 shadow-md animate-fadeIn max-w-3xl mx-auto">
                     <h3 className="text-2xl font-semibold text-gray-800 mb-3">
                         Selected Whole-Body Exercises
                     </h3>

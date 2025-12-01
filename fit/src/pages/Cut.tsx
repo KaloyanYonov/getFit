@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Cut() {
   return (
-    <div className="animate-fadeIn min-h-screen flex flex-col items-center px-6 py-16 justify-center text-center">
+    <div className="bg-gradient-to-b from-red-50 to-white animate-fadeIn min-h-screen flex flex-col items-center px-6 py-16 justify-center text-center">
       <h1 className="text-5xl font-extrabold tracking-tight text-gray-900 mb-6 animate-fadeIn">
         Welcome to the Cutting Program!
       </h1>
