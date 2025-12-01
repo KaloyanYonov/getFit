@@ -10,8 +10,9 @@ export default function RedirectButton({ to, name }: RedirectButtonProps) {
         <NavLink
             to={to}
             className="px-8 py-3 text-white rounded-lg font-medium transition
-                bg-blue-200
-                hover:bg-blue-300
+            bg-gradient-to-b from-blue-300 to-blue-200 
+            hover:from-blue-400 hover:to-blue-200 hover:bg-gradient-to-b
+
                 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2">
             {name}
         </NavLink>

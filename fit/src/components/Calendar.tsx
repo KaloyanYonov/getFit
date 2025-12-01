@@ -1,3 +1,5 @@
+import { useLocation } from "react-router-dom";
+
 type CalendarProps = {
     title: string;
     days: { day: string; type?: string }[];
@@ -5,6 +7,13 @@ type CalendarProps = {
 
 export default function Calendar({ title, days }: CalendarProps) {
     const uniqueTypes = Array.from(new Set(days.map((d) => d.type).filter(Boolean)));
+
+    const location = useLocation();
+    const program = location.state?.program || "bulk";
+
+    const bgClass = program === "cut" ? "from-red-200 to-red-50" : "from-blue-200 to-blue-50";
+    const textClass = program === "cut" ? "red-700" : "blue-700";
+    
 
     const colorMap: Record<string, string> = {
         push: "text-pink-700",
@@ -35,8 +44,8 @@ export default function Calendar({ title, days }: CalendarProps) {
     };
 
     return (
-        <div className="bg-blue-50 border border-blue-300 rounded-xl p-4 mb-8">
-            <h3 className="text-lg font-semibold text-blue-700 text-center mb-4">
+        <div className={` bg-gradient-to-b ${bgClass} rounded-xl p-4 mb-8`}>
+            <h3 className={`text-lg text-${textClass} font-semibold text-center mb-4`}>
                 {title}
             </h3>
             <div className="grid grid-cols-7 gap-2 text-center text-sm">
