@@ -16,7 +16,7 @@ export default function Bulk() {
 
             <div className="bg-white/80 backdrop-blur-sm border border-blue-200 rounded-2xl p-8 max-w-2xl mb-12 shadow-lg animate-fadeIn">
                 <h2 className="text-3xl font-semibold text-blue-700 mb-4">
-                    What is Bulking?
+                    The Strategy
                 </h2>
                 <p className="text-gray-700 leading-relaxed">
                     A calorie surplus gives your body the resources to build new muscle tissue.
